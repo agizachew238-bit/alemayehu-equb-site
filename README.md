@@ -904,7 +904,53 @@ onValue(ref(db, "draws"), snapshot => {
         <td>${money(draw.potAmount)}</td>
         <td>${new Date(draw.createdAt).toLocaleDateString()}</td>
       </tr>
-    `).join("");
+    `).join("");<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+  import {
+    getDatabase,
+    ref,
+    get,
+    set,
+    push,
+    onValue
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCrw9iYsLyW-5QNLw8dQtX0bHUFb-RZfyA",
+    authDomain: "alemayehu-equb.firebaseapp.com",
+    databaseURL: "https://alemayehu-equb-c3d70-default-rtdb.firebaseio.com",
+    projectId: "alemayehu-equb",
+    storageBucket: "alemayehu-equb.firebasestorage.app",
+    messagingSenderId: "901654220346",
+    appId: "1:901654220346:web:f1185006a2279069cf2f03"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+  window.equbFirebase = {
+    app,
+    auth,
+    db,
+    signInWithEmailAndPassword,
+    signOut,
+    ref,
+    get,
+    set,
+    push,
+    onValue
+  };
+
+  console.log("Alemayehu Equb Firebase initialized.");
+</script>
 });
 </script>
 </body>
