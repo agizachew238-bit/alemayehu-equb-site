@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>አለማየሁ እቁብ | ዘመናዊ እቁብ</title>
+<style>
+:root{--bg:#061712;--card:#0d251e;--card2:#123126;--gold:#d8b45b;--gold2:#f2d98b;--text:#f5f4ee;--muted:#aab8b2;--red:#e56b6f;--green:#63d39b;--border:rgba(216,180,91,.22)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at top,#12382b 0,#061712 45%,#04100d 100%);color:var(--text);font-family:Arial,"Noto Sans Ethiopic",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.container{width:min(1150px,92%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(4,16,13,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{font-weight:900;color:var(--gold2);font-size:20px}.navlinks{display:flex;gap:6px;flex-wrap:wrap}.navlinks button,.ghost{background:transparent;color:var(--text);border:1px solid transparent;padding:9px 12px;border-radius:10px}.navlinks button:hover{border-color:var(--border);color:var(--gold2)}
+.hero{padding:65px 0 35px}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:22px;align-items:stretch}.hero h1{font-size:clamp(34px,7vw,70px);line-height:1.02;margin:10px 0}.gold{color:var(--gold2)}.lead{color:var(--muted);font-size:18px;line-height:1.8}.hero-card,.card{background:linear-gradient(145deg,rgba(18,49,38,.92),rgba(8,27,21,.95));border:1px solid var(--border);border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.22)}
+.hero-card{padding:25px;display:flex;flex-direction:column;justify-content:center}.big-number{font-size:38px;font-weight:900;color:var(--gold2);margin:7px 0}
+.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:800}.primary{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#122016}.secondary{background:#17382c;color:var(--text);border:1px solid var(--border)}
+section{padding:32px 0}.section-title{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:17px}.section-title h2{margin:0;font-size:28px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{padding:18px}.stat b{font-size:26px;color:var(--gold2);display:block;margin-top:5px}
+.member{padding:17px}.member-top{display:flex;justify-content:space-between;gap:10px}.pill{font-size:12px;padding:5px 9px;border-radius:20px;background:#17382c;color:var(--green)}.pill.off{color:#ffb1b1;background:#3a2022}.progress{height:8px;background:#07140f;border-radius:20px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:20px}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:700px}.table th,.table td{padding:12px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left}.table th{color:var(--gold2)}
+.form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.form input,.form select{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:#071a14;color:var(--text);outline:none}.form .full{grid-column:1/-1}
+.notice{padding:14px;border-left:4px solid var(--gold);background:#0b211a;border-radius:10px;margin-bottom:10px}.notice small{color:var(--muted)}
+.wheel-area{text-align:center}.wheel{width:260px;height:260px;margin:10px auto;border-radius:50%;border:10px solid var(--gold);background:conic-gradient(#183d30 0 9%,#0b241b 9% 18%,#1d4938 18% 27%,#0b241b 27% 36%,#183d30 36% 45%,#0b241b 45% 54%,#1d4938 54% 63%,#0b241b 63% 72%,#183d30 72% 81%,#0b241b 81% 90%,#1d4938 90% 100%);display:grid;place-items:center;transition:transform 4s cubic-bezier(.15,.7,.1,1);box-shadow:0 0 45px rgba(216,180,91,.18)}.wheel span{width:90px;height:90px;border-radius:50%;background:#071a14;display:grid;place-items:center;color:var(--gold2);font-weight:900}.pointer{font-size:28px;color:var(--gold2)}
+.admin-box{padding:22px}.hidden{display:none!important}.login{max-width:500px;margin:50px auto;padding:25px}.login .form{grid-template-columns:1fr}.message{padding:11px;border-radius:9px;margin:10px 0;display:none}.ok{display:block;background:#123c2b;color:#a8f0c6}.err{display:block;background:#3d2023;color:#ffb4b4}
+footer{padding:35px 0 55px;text-align:center;color:var(--muted);border-top:1px solid var(--border);margin-top:35px}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.form{grid-template-columns:1fr}.nav{align-items:flex-start;padding:12px 0;flex-direction:column}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding-top:35px}.navlinks{width:100%;overflow:auto;flex-wrap:nowrap}.navlinks button{white-space:nowrap}.wheel{width:220px;height:220px}}
+</style>
+</head>
+<body>
+<header>
+<div class="container nav">
+<div class="brand">✦ አለማየሁ እቁብ</div>
+<div class="navlinks">
+<button onclick="go('home')">መነሻ</button><button onclick="go('members')">አባላት</button>
+<button onclick="go('payments')">ክፍያ</button><button onclick="go('lottery')">እጣ</button>
+<button onclick="go('notices')">ማሳወቂያ</button><button onclick="go('admin')">Admin</button>
+</div></div>
+</header>
+
+<main>
+<section id="home"><div class="container hero">
+<div class="hero-grid">
+<div><div class="gold">WEEKLY SAVINGS & LOTTERY MANAGEMENT</div><h1>እቁባችንን<br><span class="gold">በቀላሉ</span> እንመራ</h1>
+<p class="lead">የአባላት መዋጮ፣ የሳምንት ክፍያ፣ እጣ፣ ማሳወቂያ እና የአስተዳዳሪ ስርዓት በአንድ ዘመናዊ መድረክ።</p>
+<button class="btn primary" onclick="go('members')">አባላትን እይ</button></div>
+<div class="hero-card"><div class="muted">የሳምንቱ ጠቅላላ መዋጮ</div><div class="big-number">110,000 ብር</div><div>11 አባላት × 10,000 ብር</div><hr style="width:100%;border-color:var(--border)"><div class="muted">የእጣ ሽልማት</div><div class="big-number" style="font-size:30px">150,000 ብር</div></div>
+</div>
+<div class="stats" style="margin-top:22px">
+<div class="card stat"><span class="muted">አባላት</span><b id="statMembers">11</b></div>
+<div class="card stat"><span class="muted">የሳምንት መዋጮ</span><b>10,000</b></div>
+<div class="card stat"><span class="muted">የእጣ ሽልማት</span><b>150,000</b></div>
+<div class="card stat"><span class="muted">የመጀመሪያ እጣ</span><b>ሳምንት 6</b></div>
+</div></div></section>
+
+<section id="members"><div class="container"><div class="section-title"><div><h2>👥 አባላት</h2><div class="muted">የአባላት ክፍያ ሁኔታ</div></div></div><div id="memberGrid" class="grid"></div></div></section>
+
+<section id="payments"><div class="container"><div class="section-title"><div><h2>💳 የሳምንት ክፍያ</h2><div class="muted">15 ሳምንት የክፍያ ክትትል</div></div></div><div class="card" style="padding:18px"><div class="table-wrap"><table class="table"><thead><tr><th>ሳምንት</th><th>የተጠበቀ መዋጮ</th><th>የተከፈለ</th><th>ሁኔታ</th></tr></thead><tbody id="paymentTable"></tbody></table></div></div></div></section>
+
+<section id="lottery"><div class="container"><div class="section-title"><div><h2>🎯 እጣ</h2><div class="muted">የመጀመሪያ እጣ ከሳምንት 6 ይጀምራል</div></div></div>
+<div class="card wheel-area" style="padding:25px"><div class="pointer">▼</div><div id="wheel" class="wheel"><span>እጣ</span></div><button id="drawBtn" class="btn primary" onclick="drawLottery()">እጣ አውጣ</button><p id="winner" class="gold" style="font-size:22px;font-weight:900"></p><div id="history" class="muted"></div></div></div></section>
+
+<section id="notices"><div class="container"><div class="section-title"><div><h2>🔔 ማሳወቂያ</h2><div class="muted">የእቁቡ አዳዲስ መረጃዎች</div></div></div><div id="noticeList"></div></div></section>
+
+<section id="admin"><div class="container"><div id="loginBox" class="card login">
+<h2>🔐 Admin Login</h2><p class="muted">Firebase Authentication የሚጠቀም የአስተዳዳሪ መግቢያ።</p>
+<div class="form"><input id="email" type="email" placeholder="Admin Email"><input id="password" type="password" placeholder="Password"><button class="btn primary" onclick="login()">ግባ</button></div><div id="loginMsg" class="message"></div>
+</div>
+<div id="adminPanel" class="hidden">
+<div class="card admin-box"><div class="section-title"><div><h2>⚙️ Admin Dashboard</h2><div id="adminUser" class="muted"></div></div><button class="btn secondary" onclick="logout()">ውጣ</button></div>
+<div class="form">
+<input id="newNotice" class="full" placeholder="አዲስ ማሳወቂያ..."><button class="btn primary" onclick="addNotice()">ማሳወቂያ ጨምር</button>
+</div><hr style="border-color:var(--border);margin:25px 0">
+<h3>የአባል ክፍያ ምልክት</h3>
+<div class="form"><select id="payMember"></select><select id="payWeek"></select><button class="btn primary" onclick="markPaid()">ከፍያ እንደተፈጸመ ምልክት አድርግ</button></div>
+<p class="muted">ማስታወሻ፦ ይህ የfrontend ክፍል ነው፤ በFirebase Realtime Database Rules ላይ የAdmin መብት መጠበቅ አለበት።</p>
+</div></div></div></section>
+</main>
+<footer>© 2026 አለማየሁ እቁብ • ዘመናዊ የእቁብ አስተዳደር</footer>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import {getDatabase,ref,set,push,onValue,update} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+const firebaseConfig={
+ apiKey:"AIzaSyCj7kKQm2ZfZ8hQwYv7v5jv2oGx8vKqYx0",
+ authDomain:"alemayehu-equb.firebaseapp.com",
+ databaseURL:"https://alemayehu-equb-default-rtdb.firebaseio.com",
+ projectId:"alemayehu-equb",
+ storageBucket:"alemayehu-equb.firebasestorage.app",
+ messagingSenderId:"1050475575470",
+ appId:"1:1050475575470:web:4e9f5d0e6c6d8a3f1c2b77",
+ measurementId:"G-MER8XPCEQF"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app), db=getDatabase(app);
+
+const members=["አለማየሁ","ቃላአብ","ፌቨን","ፍሬ ሰንበት","አየናቸው","ጫላ","ቦጃ","አለማየሁ","ቃላአብ እና ፍሬ","ሞገስ","መልካሙ"];
+let payments={}, notices=[], history=[];
+const weeks=Array.from({length:15},(_,i)=>i+1);
+
+window.go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+
+function renderMembers(){
+ document.getElementById("statMembers").textContent=members.length;
+ document.getElementById("memberGrid").innerHTML=members.map((m,i)=>{
+   let paid=0; weeks.forEach(w=>{if(payments[`m${i}_w${w}`])paid++});
+   let pct=Math.round(paid/15*100);
+   return `<div class="card member"><div class="member-top"><strong>${esc(m)}</strong><span class="pill ${pct<100?"":"off"}">${paid}/15</span></div><div class="progress"><span style="width:${pct}%"></span></div><small class="muted">${pct}% የክፍያ ሁኔታ</small></div>`;
+ }).join("");
+}
+function renderPayments(){
+ document.getElementById("paymentTable").innerHTML=weeks.map(w=>{
+   let paid=members.filter((_,i)=>payments[`m${i}_w${w}`]).length;
+   return `<tr><td>ሳምንት ${w}</td><td>110,000 ብር</td><td>${paid*10000} ብር</td><td><span class="pill">${paid}/${members.length}</span></td></tr>`;
+ }).join("");
+}
+function renderNotices(){
+ const el=document.getElementById("noticeList");
+ el.innerHTML=notices.length?notices.slice().reverse().map(n=>`<div class="notice"><b>${esc(n.text||"")}</b><br><small>${esc(n.date||"")}</small></div>`).join(""):`<div class="card" style="padding:20px">ምንም አዲስ ማሳወቂያ የለም።</div>`;
+}
+function fillAdmin(){
+ document.getElementById("payMember").innerHTML=members.map((m,i)=>`<option value="${i}">${esc(m)}</option>`).join("");
+ document.getElementById("payWeek").innerHTML=weeks.map(w=>`<option value="${w}">ሳምንት ${w}</option>`).join("");
+}
+async function load(){
+ onValue(ref(db,"equb/payments"),s=>{payments=s.val()||{};renderMembers();renderPayments()});
+ onValue(ref(db,"equb/notices"),s=>{notices=s.val()?Object.values(s.val()):[];renderNotices()});
+ onValue(ref(db,"equb/lotteryHistory"),s=>{history=s.val()?Object.values(s.val()):[];document.getElementById("history").innerHTML=history.length?`ታሪክ: ${history.slice(-5).reverse().map(x=>`${esc(x.week||"")} — ${esc(x.winner||"")}`).join(" | ")}`:"ምንም የእጣ ታሪክ የለም።"});
+}
+window.login=async()=>{
+ const email=document.getElementById("email").value.trim(), pass=document.getElementById("password").value;
+ const msg=document.getElementById("loginMsg");msg.className="message";msg.textContent="";
+ try{await signInWithEmailAndPassword(auth,email,pass);msg.className="message ok";msg.textContent="በትክክል ገብተዋል።"}catch(e){msg.className="message err";msg.textContent="Login failed: "+e.message}
+};
+window.logout=()=>signOut(auth);
+onAuthStateChanged(auth,user=>{
+ document.getElementById("loginBox").classList.toggle("hidden",!!user);
+ document.getElementById("adminPanel").classList.toggle("hidden",!user);
+ if(user)document.getElementById("adminUser").textContent=user.email;
+});
+window.addNotice=async()=>{
+ const text=document.getElementById("newNotice").value.trim();if(!text)return;
+ await push(ref(db,"equb/notices"),{text,date:new Date().toLocaleString("am-ET")});
+ document.getElementById("newNotice").value="";
+};
+window.markPaid=async()=>{
+ const i=document.getElementById("payMember").value,w=document.getElementById("payWeek").value;
+ await set(ref(db,`equb/payments/m${i}_w${w}`),true);
+};
+window.drawLottery=async()=>{
+ if(!auth.currentUser){alert("የእጣ አስተዳደር ለAdmin ብቻ ነው።");return}
+ const week=prompt("የእጣ ሳምንት ያስገቡ (6-15):","6");const wn=Number(week);
+ if(!Number.isInteger(wn)||wn<6||wn>15){alert("እባክዎ ከ6 እስከ 15 ያለ ሳምንት ያስገቡ።");return}
+ const winner=members[Math.floor(Math.random()*members.length)];
+ const wheel=document.getElementById("wheel");wheel.style.transform=`rotate(${1440+Math.floor(Math.random()*360)}deg)`;
+ document.getElementById("drawBtn").disabled=true;
+ setTimeout(async()=>{
+   document.getElementById("winner").textContent=`🏆 አሸናፊ፦ ${winner} — 150,000 ብር`;
+   await push(ref(db,"equb/lotteryHistory"),{week:`ሳምንት ${wn}`,winner,prize:150000,date:new Date().toLocaleString("am-ET")});
+   document.getElementById("drawBtn").disabled=false;
+ },4100);
+};
+
+fillAdmin();renderMembers();renderPayments();renderNotices();load();
+</script>
+</body>
+</html>
