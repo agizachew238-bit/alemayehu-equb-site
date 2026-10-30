@@ -332,6 +332,30 @@ window.addNotice=async()=>{
  await push(ref(db,"equb/notices"),{text,date:new Date().toLocaleString("am-ET")});
  document.getElementById("newNotice").value="";
 };
+ window.editMember = async (i) => {
+  if (!auth.currentUser) {
+    alert("Admin ብቻ ስም ማስተካከል ይችላል።");
+    return;
+  }
+
+  const oldName = members[i];
+  const newName = prompt("አዲሱን ስም ያስገቡ፦", oldName);
+
+  if (!newName || !newName.trim()) return;
+
+  const updatedMembers = [...members];
+  updatedMembers[i] = newName.trim();
+
+  try {
+    await set(ref(db, "equb/members"), updatedMembers);
+    members = updatedMembers;
+    fillAdmin();
+    renderMembers();
+    alert("የአባሉ ስም ተስተካክሏል።");
+  } catch (error) {
+    alert("ስሙ አልተስተካከለም። " + error.message);
+  }
+};
   window.addMember = async () => {
   if (!auth.currentUser) {
     alert("Admin ብቻ አባል መጨመር ይችላል።");
