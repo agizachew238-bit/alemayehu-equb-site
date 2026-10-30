@@ -145,9 +145,33 @@ window.addNotice=async()=>{
  await push(ref(db,"equb/notices"),{text,date:new Date().toLocaleString("am-ET")});
  document.getElementById("newNotice").value="";
 };
-window.markPaid=async()=>{
- const i=document.getElementById("payMember").value,w=document.getElementById("payWeek").value;
- await set(ref(db,`equb/payments/m${i}_w${w}`),true);
+window.markPaid = async () => {
+  if (!auth.currentUser) {
+    alert("Admin ብቻ ክፍያ መመዝገብ ይችላል።");
+    return;
+  }
+
+  const i = document.getElementById("payMember").value;
+  const w = document.getElementById("payWeek").value;
+  const key = `m${i}_w${w}`;
+
+  if (payments[key]) {
+    alert("ይህ አባል ክፍያውን አስቀድሞ ፈጽሟል።");
+    return;
+  }
+
+  try {
+    await set(ref(db, `equb/payments/${key}`), {
+      paid: true,
+      amount: 10000,
+      date: new Date().toLocaleString("am-ET")
+    });
+
+    alert("10,000 ብር ክፍያ በትክክል ተመዝግቧል።");
+
+  } catch (error) {
+    alert("ክፍያው አልተመዘገበም። " + error.message);
+  }
 };
 window.drawLottery=async()=>{
  if(!auth.currentUser){alert("የእጣ አስተዳደር ለAdmin ብቻ ነው።");return}
