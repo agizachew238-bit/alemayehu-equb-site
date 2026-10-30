@@ -138,7 +138,42 @@ const weeks=Array.from({length:15},(_,i)=>i+1);
 window.go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
-function renderPayments(){
+function renderMembers(){
+  const grid = document.getElementById("memberGrid");
+
+  if(!grid) return;
+
+  grid.innerHTML = members.map((m,i)=>{
+    let paid = 0;
+
+    weeks.forEach(w=>{
+      const p = payments[`m${i}_w${w}`];
+
+      if(p === true || p?.paid === true){
+        paid++;
+      }
+    });
+
+    const percent = Math.round((paid / weeks.length) * 100);
+
+    return `
+      <div class="card member">
+        <div class="member-top">
+          <b>${esc(m)}</b>
+          <span class="pill">${paid}/${weeks.length}</span>
+        </div>
+
+        <div class="progress">
+          <span style="width:${percent}%"></span>
+        </div>
+
+        <div class="muted">
+          ${paid} ሳምንት ተከፍሏል
+        </div>
+      </div>
+    `;
+  }).join("");
+}
 
  let totalCollected = 0;
 
@@ -200,11 +235,7 @@ function renderPayments(){
      : `<tr><td colspan="4">እስካሁን ክፍያ የለም።</td></tr>`;
  }
 }
-function renderPayments(){
- document.getElementById("paymentTable").innerHTML=weeks.map(w=>{
-   let paid=members.filter((_,i)=>payments[`m${i}_w${w}`]).length;
-   return `<tr><td>ሳምንት ${w}</td><td>110,000 ብር</td><td>${paid*10000} ብር</td><td><span class="pill">${paid}/${members.length}</span></td></tr>`;
- }).join("");
+
 }
 function renderNotices(){
  const el=document.getElementById("noticeList");
