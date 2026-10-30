@@ -437,17 +437,83 @@ window.markPaid = async () => {
   }
 };
 window.drawLottery=async()=>{
- if(!auth.currentUser){alert("የእጣ አስተዳደር ለAdmin ብቻ ነው።");return}
- const week=prompt("የእጣ ሳምንት ያስገቡ (6-15):","6");const wn=Number(week);
- if(!Number.isInteger(wn)||wn<6||wn>15){alert("እባክዎ ከ6 እስከ 15 ያለ ሳምንት ያስገቡ።");return}
- const winner=members[Math.floor(Math.random()*members.length)];
- const wheel=document.getElementById("wheel");wheel.style.transform=`rotate(${1440+Math.floor(Math.random()*360)}deg)`;
- document.getElementById("drawBtn").disabled=true;
- setTimeout(async()=>{
-   document.getElementById("winner").textContent=`🏆 አሸናፊ፦ ${winner} — 150,000 ብር`;
-   await push(ref(db,"equb/lotteryHistory"),{week:`ሳምንት ${wn}`,winner,prize:150000,date:new Date().toLocaleString("am-ET")});
-   document.getElementById("drawBtn").disabled=false;
- },4100);
+  if(!auth.currentUser){
+    alert("የእጣ አስተዳደር ለAdmin ብቻ ነው።");
+    return;
+  }
+
+  const startWeek = 6;
+
+  // ቀድሞ እጣ ያገኙ አባላት
+  const winners = history
+    .map(x => x.winner)
+    .filter(Boolean);
+
+  // እጣ ያላገኙ አባላት
+  const availableMembers = members.filter(
+    m => !winners.includes(m)
+  );
+
+  if(availableMembers.length === 0){
+    alert("ሁሉም አባላት እጣ አግኝተዋል።");
+    return;
+  }
+
+  // የተጠቀሙትን ሳምንታት ይፈልጋል
+  const usedWeeks = history
+    .map(x => Number(String(x.week || "").replace(/\D/g,"")))
+    .filter(Number.isInteger);
+
+  let nextWeek = startWeek;
+
+  while(usedWeeks.includes(nextWeek)){
+    nextWeek++;
+  }
+
+  // ከቀሩት አባላት አንድ ይመርጣል
+  const winner =
+    availableMembers[
+      Math.floor(Math.random() * availableMembers.length)
+    ];
+
+  const wheel=document.getElementById("wheel");
+
+  wheel.style.transform=
+    `rotate(${1440+Math.floor(Math.random()*360)}deg)`;
+
+  const drawBtn=document.getElementById("drawBtn");
+  drawBtn.disabled=true;
+
+  setTimeout(async()=>{
+
+    document.getElementById("winner").textContent=
+      `🏆 አሸናፊ፦ ${winner} — 150,000 ብር`;
+
+    try{
+
+      await push(
+        ref(db,"equb/lotteryHistory"),
+        {
+          week:`ሳምንት ${nextWeek}`,
+          winner:winner,
+          prize:150000,
+          date:new Date().toLocaleString("am-ET")
+        }
+      );
+
+      alert(
+        `ሳምንት ${nextWeek} እጣ ተካሂዷል።\nአሸናፊ፦ ${winner}`
+      );
+
+    }catch(error){
+
+      alert("የእጣ ታሪክ አልተቀመጠም። "+error.message);
+
+    }
+
+    drawBtn.disabled=false;
+
+  },4100);
 };
 
 fillAdmin();renderMembers();renderPayments();renderNotices();load();
