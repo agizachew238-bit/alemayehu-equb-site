@@ -53,8 +53,44 @@ footer{padding:35px 0 55px;text-align:center;color:var(--muted);border-top:1px s
 
 <section id="members"><div class="container"><div class="section-title"><div><h2>👥 አባላት</h2><div class="muted">የአባላት ክፍያ ሁኔታ</div></div></div><div id="memberGrid" class="grid"></div></div></section>
 
-<section id="payments"><div class="container"><div class="section-title"><div><h2>💳 የሳምንት ክፍያ</h2><div class="muted">15 ሳምንት የክፍያ ክትትል</div></div></div><div class="card" style="padding:18px"><div class="table-wrap"><table class="table"><thead><tr><th>ሳምንት</th><th>የተጠበቀ መዋጮ</th><th>የተከፈለ</th><th>ሁኔታ</th></tr></thead><tbody id="paymentTable"></tbody></table></div></div></div></section>
+<div class="card" style="padding:18px">
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ሳምንት</th>
+          <th>የተጠበቀ መዋጮ</th>
+          <th>የተከፈለ</th>
+          <th>ሁኔታ</th>
+        </tr>
+      </thead>
+      <tbody id="paymentTable"></tbody>
+    </table>
+  </div>
+</div>
 
+<div class="card" style="padding:20px;margin-top:20px">
+  <h3>📊 ጠቅላላ የተሰበሰበ ገንዘብ</h3>
+  <div id="totalCollected"
+       style="font-size:30px;color:#f2d98b;font-weight:bold">
+    0 ብር
+  </div>
+
+  <h3>📋 የክፍያ ታሪክ</h3>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>የአባል ስም</th>
+          <th>ሳምንት</th>
+          <th>የተከፈለ ገንዘብ</th>
+          <th>የክፍያ ቀን</th>
+        </tr>
+      </thead>
+      <tbody id="paymentHistory"></tbody>
+    </table>
+  </div>
+</div>
 <section id="lottery"><div class="container"><div class="section-title"><div><h2>🎯 እጣ</h2><div class="muted">የመጀመሪያ እጣ ከሳምንት 6 ይጀምራል</div></div></div>
 <div class="card wheel-area" style="padding:25px"><div class="pointer">▼</div><div id="wheel" class="wheel"><span>እጣ</span></div><button id="drawBtn" class="btn primary" onclick="drawLottery()">እጣ አውጣ</button><p id="winner" class="gold" style="font-size:22px;font-weight:900"></p><div id="history" class="muted"></div></div></div></section>
 
