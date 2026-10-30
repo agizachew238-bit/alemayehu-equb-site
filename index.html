@@ -195,68 +195,7 @@ function renderPayments(){
       : `<tr><td colspan="4">እስካሁን ክፍያ የለም።</td></tr>`;
   }
 }
- let totalCollected = 0;
-
- document.getElementById("paymentTable").innerHTML =
- weeks.map(w => {
-
-   let paid = members.filter((_,i) => {
-     const p = payments[`m${i}_w${w}`];
-     return p === true || p?.paid === true;
-   }).length;
-
-   totalCollected += paid * 10000;
-
-   return `
-     <tr>
-       <td>ሳምንት ${w}</td>
-       <td>110,000 ብር</td>
-       <td>${(paid * 10000).toLocaleString()} ብር</td>
-       <td>
-         <span class="pill">${paid}/${members.length}</span>
-       </td>
-     </tr>
-   `;
- }).join("");
-
- const total = document.getElementById("totalCollected");
-
- if(total){
-   total.textContent = totalCollected.toLocaleString() + " ብር";
- }
-
- const historyBody = document.getElementById("paymentHistory");
-
- if(historyBody){
-   let rows = [];
-
-   weeks.forEach(w => {
-     members.forEach((m,i) => {
-
-       const p = payments[`m${i}_w${w}`];
-
-       if(p === true || p?.paid === true){
-
-         rows.push(`
-           <tr>
-             <td>${esc(m)}</td>
-             <td>ሳምንት ${w}</td>
-             <td>10,000 ብር</td>
-             <td>${esc(p.date || "ቀን አልተመዘገበም")}</td>
-           </tr>
-         `);
-
-       }
-     });
-   });
-
-   historyBody.innerHTML = rows.length
-     ? rows.join("")
-     : `<tr><td colspan="4">እስካሁን ክፍያ የለም።</td></tr>`;
- }
-}
-
-}
+ 
 function renderNotices(){
  const el=document.getElementById("noticeList");
  el.innerHTML=notices.length?notices.slice().reverse().map(n=>`<div class="notice"><b>${esc(n.text||"")}</b><br><small>${esc(n.date||"")}</small></div>`).join(""):`<div class="card" style="padding:20px">ምንም አዲስ ማሳወቂያ የለም።</div>`;
