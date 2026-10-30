@@ -102,13 +102,67 @@ const weeks=Array.from({length:15},(_,i)=>i+1);
 window.go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
-function renderMembers(){
- document.getElementById("statMembers").textContent=members.length;
- document.getElementById("memberGrid").innerHTML=members.map((m,i)=>{
-   let paid=0; weeks.forEach(w=>{if(payments[`m${i}_w${w}`])paid++});
-   let pct=Math.round(paid/15*100);
-   return `<div class="card member"><div class="member-top"><strong>${esc(m)}</strong><span class="pill ${pct<100?"":"off"}">${paid}/15</span></div><div class="progress"><span style="width:${pct}%"></span></div><small class="muted">${pct}% የክፍያ ሁኔታ</small></div>`;
+function renderPayments(){
+
+ let totalCollected = 0;
+
+ document.getElementById("paymentTable").innerHTML =
+ weeks.map(w => {
+
+   let paid = members.filter((_,i) => {
+     const p = payments[`m${i}_w${w}`];
+     return p === true || p?.paid === true;
+   }).length;
+
+   totalCollected += paid * 10000;
+
+   return `
+     <tr>
+       <td>ሳምንት ${w}</td>
+       <td>110,000 ብር</td>
+       <td>${(paid * 10000).toLocaleString()} ብር</td>
+       <td>
+         <span class="pill">${paid}/${members.length}</span>
+       </td>
+     </tr>
+   `;
  }).join("");
+
+ const total = document.getElementById("totalCollected");
+
+ if(total){
+   total.textContent = totalCollected.toLocaleString() + " ብር";
+ }
+
+ const historyBody = document.getElementById("paymentHistory");
+
+ if(historyBody){
+   let rows = [];
+
+   weeks.forEach(w => {
+     members.forEach((m,i) => {
+
+       const p = payments[`m${i}_w${w}`];
+
+       if(p === true || p?.paid === true){
+
+         rows.push(`
+           <tr>
+             <td>${esc(m)}</td>
+             <td>ሳምንት ${w}</td>
+             <td>10,000 ብር</td>
+             <td>${esc(p.date || "ቀን አልተመዘገበም")}</td>
+           </tr>
+         `);
+
+       }
+     });
+   });
+
+   historyBody.innerHTML = rows.length
+     ? rows.join("")
+     : `<tr><td colspan="4">እስካሁን ክፍያ የለም።</td></tr>`;
+ }
 }
 function renderPayments(){
  document.getElementById("paymentTable").innerHTML=weeks.map(w=>{
