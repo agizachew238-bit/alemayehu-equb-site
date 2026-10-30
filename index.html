@@ -105,6 +105,14 @@ footer{padding:35px 0 55px;text-align:center;color:var(--muted);border-top:1px s
 <div class="form">
 <input id="newNotice" class="full" placeholder="አዲስ ማሳወቂያ..."><button class="btn primary" onclick="addNotice()">ማሳወቂያ ጨምር</button>
 </div><hr style="border-color:var(--border);margin:25px 0">
+<hr style="border-color:var(--border);margin:25px 0">
+
+<h3>👤 አዲስ አባል ጨምር</h3>
+
+<div class="form">
+  <input id="newMemberName" placeholder="የአባሉን ስም አስገባ">
+  <button class="btn primary" onclick="addMember()">አባል ጨምር</button>
+</div>
 <h3>የአባል ክፍያ ምልክት</h3>
 <div class="form"><select id="payMember"></select><select id="payWeek"></select><button class="btn primary" onclick="markPaid()">ከፍያ እንደተፈጸመ ምልክት አድርግ</button></div>
 <p class="muted">ማስታወሻ፦ ይህ የfrontend ክፍል ነው፤ በFirebase Realtime Database Rules ላይ የAdmin መብት መጠበቅ አለበት።</p>
