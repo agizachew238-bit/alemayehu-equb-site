@@ -345,8 +345,9 @@ window.addNotice=async()=>{
   }
 
   try {
-    const result = await push(ref(db, "equb/members"), name);
-    members.push(name);
+    const newMembers = [...members, name];
+await set(ref(db, "equb/members"), newMembers);
+members = newMembers;
 
     fillAdmin();
     renderMembers();
