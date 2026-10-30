@@ -302,6 +302,33 @@ window.addNotice=async()=>{
  await push(ref(db,"equb/notices"),{text,date:new Date().toLocaleString("am-ET")});
  document.getElementById("newNotice").value="";
 };
+  window.addMember = async () => {
+  if (!auth.currentUser) {
+    alert("Admin ብቻ አባል መጨመር ይችላል።");
+    return;
+  }
+
+  const input = document.getElementById("newMemberName");
+  const name = input.value.trim();
+
+  if (!name) {
+    alert("እባክዎ የአባሉን ስም ያስገቡ።");
+    return;
+  }
+
+  try {
+    const result = await push(ref(db, "equb/members"), name);
+    members.push(name);
+
+    fillAdmin();
+    renderMembers();
+
+    input.value = "";
+    alert("አዲሱ አባል ተጨምሯል።");
+  } catch (error) {
+    alert("አባሉ አልተጨመረም። " + error.message);
+  }
+};
 window.markPaid = async () => {
   if (!auth.currentUser) {
     alert("Admin ብቻ ክፍያ መመዝገብ ይችላል።");
