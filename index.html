@@ -356,7 +356,32 @@ window.addNotice=async()=>{
     alert("ስሙ አልተስተካከለም። " + error.message);
   }
 };
-  window.addMember = async () => {
+window.deleteMember = async (i) => {
+  if (!auth.currentUser) {
+    alert("Admin ብቻ አባል መሰረዝ ይችላል።");
+    return;
+  }
+
+  const name = members[i];
+
+  if (!confirm(`"${name}" አባልን መሰረዝ ይፈልጋሉ?`)) return;
+
+  try {
+    const updatedMembers = members.filter((_, index) => index !== i);
+
+    await set(ref(db, "equb/members"), updatedMembers);
+
+    members = updatedMembers;
+    fillAdmin();
+    renderMembers();
+    renderPayments();
+
+    alert("አባሉ ተሰርዟል።");
+  } catch (error) {
+    alert("አባሉ አልተሰረዘም። " + error.message);
+  }
+};
+    window.addMember = async () => {
   if (!auth.currentUser) {
     alert("Admin ብቻ አባል መጨመር ይችላል።");
     return;
