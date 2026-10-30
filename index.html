@@ -258,9 +258,37 @@ function fillAdmin(){
  document.getElementById("payWeek").innerHTML=weeks.map(w=>`<option value="${w}">ሳምንት ${w}</option>`).join("");
 }
 async function load(){
- onValue(ref(db,"equb/payments"),s=>{payments=s.val()||{};renderMembers();renderPayments()});
- onValue(ref(db,"equb/notices"),s=>{notices=s.val()?Object.values(s.val()):[];renderNotices()});
- onValue(ref(db,"equb/lotteryHistory"),s=>{history=s.val()?Object.values(s.val()):[];document.getElementById("history").innerHTML=history.length?`ታሪክ: ${history.slice(-5).reverse().map(x=>`${esc(x.week||"")} — ${esc(x.winner||"")}`).join(" | ")}`:"ምንም የእጣ ታሪክ የለም።"});
+
+ onValue(ref(db,"equb/members"), async s => {
+   const data = s.val();
+
+   if(data === null){
+     await set(ref(db,"equb/members"), members);
+   } else {
+     members = Object.values(data);
+     fillAdmin();
+     renderMembers();
+   }
+ });
+
+ onValue(ref(db,"equb/payments"),s=>{
+   payments=s.val()||{};
+   renderMembers();
+   renderPayments();
+ });
+
+ onValue(ref(db,"equb/notices"),s=>{
+   notices=s.val()?Object.values(s.val()):[];
+   renderNotices();
+ });
+
+ onValue(ref(db,"equb/lotteryHistory"),s=>{
+   history=s.val()?Object.values(s.val()):[];
+   document.getElementById("history").innerHTML=history.length
+   ? `ታሪክ: ${history.slice(-5).reverse().map(x=>`${esc(x.week||"")} — ${esc(x.winner||"")}`).join(" | ")}`
+   : "ምንም የእጣ ታሪክ የለም።";
+ });
+
 }
 window.login = async () => {
   const email = document.getElementById("email").value.trim();
