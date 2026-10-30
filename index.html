@@ -219,10 +219,34 @@ async function load(){
  onValue(ref(db,"equb/notices"),s=>{notices=s.val()?Object.values(s.val()):[];renderNotices()});
  onValue(ref(db,"equb/lotteryHistory"),s=>{history=s.val()?Object.values(s.val()):[];document.getElementById("history").innerHTML=history.length?`ታሪክ: ${history.slice(-5).reverse().map(x=>`${esc(x.week||"")} — ${esc(x.winner||"")}`).join(" | ")}`:"ምንም የእጣ ታሪክ የለም።"});
 }
-window.login=async()=>{
- const email=document.getElementById("email").value.trim(), pass=document.getElementById("password").value;
- const msg=document.getElementById("loginMsg");msg.className="message";msg.textContent="";
- try{await signInWithEmailAndPassword(auth,email,pass);msg.className="message ok";msg.textContent="በትክክል ገብተዋል።"}catch(e){msg.className="message err";msg.textContent="Login failed: "+e.message}
+window.login = async () => {
+  const email = document.getElementById("email").value.trim();
+  const pass = document.getElementById("password").value;
+  const msg = document.getElementById("loginMsg");
+
+  msg.className = "message";
+  msg.textContent = "እየገባ ነው...";
+
+  if (!email || !pass) {
+    msg.className = "message err";
+    msg.textContent = "Email እና Password ሙሉ በሙሉ ያስገቡ።";
+    return;
+  }
+
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, pass);
+
+    msg.className = "message ok";
+    msg.textContent = "በትክክል ገብተዋል።";
+
+    console.log("LOGIN SUCCESS:", result.user.email);
+
+  } catch (e) {
+    console.error("LOGIN ERROR:", e);
+
+    msg.className = "message err";
+    msg.textContent = "Login failed: " + e.code + " | " + e.message;
+  }
 };
 window.logout=()=>signOut(auth);
 onAuthStateChanged(auth,user=>{
