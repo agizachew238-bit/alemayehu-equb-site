@@ -147,20 +147,16 @@ window.go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
   function renderMembers(){
+  function renderMembers(){
   const grid = document.getElementById("memberGrid");
-
   if(!grid) return;
 
   grid.innerHTML = members.map((m,i) => {
-
     let paid = 0;
 
     weeks.forEach(w => {
       const p = payments[`m${i}_w${w}`];
-
-      if(p === true || p?.paid === true){
-        paid++;
-      }
+      if(p === true || p?.paid === true) paid++;
     });
 
     const percent = Math.round((paid / weeks.length) * 100);
@@ -172,10 +168,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"
             <strong>👤 ${esc(m)}</strong>
             <div class="muted">አባል ${i + 1}</div>
           </div>
-
-          <span class="pill">
-            ${paid}/${weeks.length}
-          </span>
+          <span class="pill">${paid}/${weeks.length}</span>
         </div>
 
         <div class="progress">
@@ -184,6 +177,15 @@ const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 
         <div class="muted">
           የተከፈለ፦ ${(paid * 10000).toLocaleString()} ብር
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn secondary" onclick="editMember(${i})">
+            ✏️ አስተካክል
+          </button>
+          <button class="btn danger" onclick="deleteMember(${i})">
+            🗑️ ሰርዝ
+          </button>
         </div>
       </div>
     `;
