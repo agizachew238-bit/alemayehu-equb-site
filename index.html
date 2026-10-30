@@ -138,43 +138,63 @@ const weeks=Array.from({length:15},(_,i)=>i+1);
 window.go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
-function renderMembers(){
-  const grid = document.getElementById("memberGrid");
+function renderPayments(){
+  let totalCollected = 0;
 
-  if(!grid) return;
+  document.getElementById("paymentTable").innerHTML =
+    weeks.map(w => {
 
-  grid.innerHTML = members.map((m,i)=>{
-    let paid = 0;
+      let paid = members.filter((_,i) => {
+        const p = payments[`m${i}_w${w}`];
+        return p === true || p?.paid === true;
+      }).length;
 
-    weeks.forEach(w=>{
-      const p = payments[`m${i}_w${w}`];
+      totalCollected += paid * 10000;
 
-      if(p === true || p?.paid === true){
-        paid++;
-      }
+      return `
+        <tr>
+          <td>ሳምንት ${w}</td>
+          <td>110,000 ብር</td>
+          <td>${(paid * 10000).toLocaleString()} ብር</td>
+          <td><span class="pill">${paid}/${members.length}</span></td>
+        </tr>
+      `;
+    }).join("");
+
+  const total = document.getElementById("totalCollected");
+
+  if(total){
+    total.textContent = totalCollected.toLocaleString() + " ብር";
+  }
+
+  const historyBody = document.getElementById("paymentHistory");
+
+  if(historyBody){
+    let rows = [];
+
+    weeks.forEach(w => {
+      members.forEach((m,i) => {
+
+        const p = payments[`m${i}_w${w}`];
+
+        if(p === true || p?.paid === true){
+          rows.push(`
+            <tr>
+              <td>${esc(m)}</td>
+              <td>ሳምንት ${w}</td>
+              <td>10,000 ብር</td>
+              <td>${esc(p.date || "ቀን አልተመዘገበም")}</td>
+            </tr>
+          `);
+        }
+      });
     });
 
-    const percent = Math.round((paid / weeks.length) * 100);
-
-    return `
-      <div class="card member">
-        <div class="member-top">
-          <b>${esc(m)}</b>
-          <span class="pill">${paid}/${weeks.length}</span>
-        </div>
-
-        <div class="progress">
-          <span style="width:${percent}%"></span>
-        </div>
-
-        <div class="muted">
-          ${paid} ሳምንት ተከፍሏል
-        </div>
-      </div>
-    `;
-  }).join("");
+    historyBody.innerHTML = rows.length
+      ? rows.join("")
+      : `<tr><td colspan="4">እስካሁን ክፍያ የለም።</td></tr>`;
+  }
 }
-
  let totalCollected = 0;
 
  document.getElementById("paymentTable").innerHTML =
