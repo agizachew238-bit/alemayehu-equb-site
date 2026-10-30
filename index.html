@@ -139,7 +139,7 @@ const firebaseConfig={
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app), db=getDatabase(app);
 
-const members=["አለማየሁ","ቃላአብ","ፌቨን","ፍሬ ሰንበት","አየናቸው","ጫላ","ቦጃ","አለማየሁ","ቃላአብ እና ፍሬ","ሞገስ","መልካሙ"];
+let members=["አለማየሁ","ቃላአብ","ፌቨን","ፍሬ ሰንበት","አየናቸው","ጫላ","ቦጃ","አለማየሁ","ቃላአብ እና ፍሬ","ሞገስ","መልካሙ"];
 let payments={}, notices=[], history=[];
 const weeks=Array.from({length:15},(_,i)=>i+1);
 
