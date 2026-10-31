@@ -437,7 +437,6 @@ window.markPaid = async () => {
   }
 };
 window.drawLottery=async()=>{
-window.drawLottery=async()=>{
   if(!auth.currentUser){
     alert("የእጣ አስተዳደር ለAdmin ብቻ ነው።");
     return;
@@ -533,18 +532,6 @@ window.drawLottery=async()=>{
 
   },4100);
 };
-
-    }catch(error){
-
-      alert("የእጣ ታሪክ አልተቀመጠም። "+error.message);
-
-    }
-
-    drawBtn.disabled=false;
-
-  },4100);
-};
-
 fillAdmin();renderMembers();renderPayments();renderNotices();load();
 </script>
 </body>
