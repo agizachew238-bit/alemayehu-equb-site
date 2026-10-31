@@ -299,6 +299,8 @@ function fillAdmin(){
  document.getElementById("payMember").innerHTML=members.map((m,i)=>`<option value="${i}">${esc(m)}</option>`).join("");
  document.getElementById("payWeek").innerHTML=weeks.map(w=>`<option value="${w}">ሳምንት ${w}</option>`).join("");
 }
+  document.getElementById("amountWeek").innerHTML =
+  weeks.map(w=>`<option value="${w}">ሳምንት ${w}</option>`).join("");
 async function load(){
 
  onValue(ref(db,"equb/members"), async s => {
