@@ -358,6 +358,23 @@ window.addNotice=async()=>{
  await push(ref(db,"equb/notices"),{text,date:new Date().toLocaleString("am-ET")});
  document.getElementById("newNotice").value="";
 };
+  window.deleteNotice = async (id) => {
+  if (!auth.currentUser) {
+    alert("Admin ብቻ ማሳወቂያ መሰረዝ ይችላል።");
+    return;
+  }
+
+  if (!confirm("ይህን ማሳወቂያ ማጥፋት ይፈልጋሉ?")) {
+    return;
+  }
+
+  try {
+    await set(ref(db, `equb/notices/${id}`), null);
+    alert("ማሳወቂያው ተሰርዟል።");
+  } catch (error) {
+    alert("ማሳወቂያው አልተሰረዘም። " + error.message);
+  }
+};
  window.editMember = async (i) => {
   if (!auth.currentUser) {
     alert("Admin ብቻ ስም ማስተካከል ይችላል።");
