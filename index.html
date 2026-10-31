@@ -258,8 +258,26 @@ function renderPayments(){
 }
  
 function renderNotices(){
- const el=document.getElementById("noticeList");
- el.innerHTML=notices.length?notices.slice().reverse().map(n=>`<div class="notice"><b>${esc(n.text||"")}</b><br><small>${esc(n.date||"")}</small></div>`).join(""):`<div class="card" style="padding:20px">ምንም አዲስ ማሳወቂያ የለም።</div>`;
+  const el=document.getElementById("noticeList");
+
+  el.innerHTML=notices.length
+    ? notices.slice().reverse().map(n=>`
+      <div class="notice">
+        <b>${esc(n.text||"")}</b><br>
+        <small>${esc(n.date||"")}</small>
+
+        ${auth.currentUser ? `
+          <button class="btn secondary"
+            style="margin-top:8px"
+            onclick="deleteNotice('${n.id}')">
+            🗑️ ሰርዝ
+          </button>
+        ` : ""}
+      </div>
+    `).join("")
+    : `<div class="card" style="padding:20px">
+        ምንም አዲስ ማሳወቂያ የለም።
+      </div>`;
 }
 function fillAdmin(){
  document.getElementById("payMember").innerHTML=members.map((m,i)=>`<option value="${i}">${esc(m)}</option>`).join("");
