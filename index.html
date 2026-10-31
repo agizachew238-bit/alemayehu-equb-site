@@ -443,6 +443,24 @@ window.markPaid = async () => {
     alert("ክፍያው አልተመዘገበም። " + error.message);
   }
 };
+  window.resetLottery = async () => {
+  if (!auth.currentUser) {
+    alert("Admin ብቻ የእጣ History ማጥፋት ይችላል።");
+    return;
+  }
+
+  if (!confirm("ሁሉንም የእጣ History ማጥፋት ይፈልጋሉ?")) {
+    return;
+  }
+
+  try {
+    await set(ref(db, "equb/lotteryHistory"), null);
+    document.getElementById("winner").textContent = "";
+    alert("የእጣ History ተሰርዟል።");
+  } catch (error) {
+    alert("History አልተሰረዘም። " + error.message);
+  }
+};
 window.drawLottery=async()=>{
   if(!auth.currentUser){
     alert("የእጣ አስተዳደር ለAdmin ብቻ ነው።");
