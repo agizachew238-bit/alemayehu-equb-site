@@ -286,9 +286,11 @@ async function load(){
  });
 
  onValue(ref(db,"equb/notices"),s=>{
-   notices=s.val()?Object.values(s.val()):[];
-   renderNotices();
- });
+  notices = s.val()
+    ? Object.entries(s.val()).map(([id,value])=>({id,...value}))
+    : [];
+  renderNotices();
+});
 
  onValue(ref(db,"equb/lotteryHistory"),s=>{
    history=s.val()?Object.values(s.val()):[];
