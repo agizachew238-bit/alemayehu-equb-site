@@ -401,8 +401,29 @@ window.addNotice=async()=>{
     alert("Admin ብቻ ስም ማስተካከል ይችላል።");
     return;
   }
+
+  const oldName = members[i];
+  const newName = prompt("አዲሱን ስም ያስገቡ፦", oldName);
+
+  if (!newName || !newName.trim()) return;
+
+  const updatedMembers = [...members];
+  updatedMembers[i] = newName.trim();
+
+  try {
+    await set(ref(db, "equb/members"), updatedMembers);
+    members = updatedMembers;
+    fillAdmin();
+    renderMembers();
+    alert("የአባሉ ስም ተስተካክሏል።");
+  } catch (error) {
+    alert("ስሙ አልተስተካከለም። " + error.message);
+  }
+};
+
 window.saveWeekAmount = async () => {
- alert("saveWeekAmount ተጠርቷል!");
+  alert("saveWeekAmount ተጠርቷል!");
+
   if (!auth.currentUser) {
     alert("Admin ብቻ የሳምንት መዋጮ መጠን መቀየር ይችላል።");
     return;
@@ -421,24 +442,6 @@ window.saveWeekAmount = async () => {
     alert(`ሳምንት ${week} መዋጮ ${amount.toLocaleString()} ብር ሆኗል።`);
   } catch (error) {
     alert("መጠኑ አልተቀመጠም። " + error.message);
-  }
-};
-  const oldName = members[i];
-  const newName = prompt("አዲሱን ስም ያስገቡ፦", oldName);
-
-  if (!newName || !newName.trim()) return;
-
-  const updatedMembers = [...members];
-  updatedMembers[i] = newName.trim();
-
-  try {
-    await set(ref(db, "equb/members"), updatedMembers);
-    members = updatedMembers;
-    fillAdmin();
-    renderMembers();
-    alert("የአባሉ ስም ተስተካክሏል።");
-  } catch (error) {
-    alert("ስሙ አልተስተካከለም። " + error.message);
   }
 };
 window.deleteMember = async (i) => {
