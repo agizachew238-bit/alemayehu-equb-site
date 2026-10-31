@@ -232,7 +232,7 @@ function renderPayments(){
         <tr>
           <td>ሳምንት ${w}</td>
           <td>${((Number(weekAmounts[w]) || 10000) * members.length).toLocaleString()} ብር</td>
-          <td>${(paid * 10000).toLocaleString()} ብር</td>
+          <td>${(paid * (Number(weekAmounts[w]) || 10000)).toLocaleString()} ብር</td>
           <td><span class="pill">${paid}/${members.length}</span></td>
         </tr>
       `;
