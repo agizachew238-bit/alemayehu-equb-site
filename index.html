@@ -121,6 +121,21 @@ footer{padding:35px 0 55px;text-align:center;color:var(--muted);border-top:1px s
   </button>
 </div>
 <h3>የአባል ክፍያ ምልክት</h3>
+  <h3>💰 የሳምንት መዋጮ መጠን</h3>
+
+<div class="form">
+  <select id="amountWeek"></select>
+
+  <input
+    id="weekAmount"
+    type="number"
+    placeholder="የመዋጮ መጠን ለምሳሌ 10000"
+  >
+
+  <button class="btn primary" onclick="saveWeekAmount()">
+    💾 መጠኑን አስቀምጥ
+  </button>
+</div>
 <div class="form"><select id="payMember"></select><select id="payWeek"></select><button class="btn primary" onclick="markPaid()">ከፍያ እንደተፈጸመ ምልክት አድርግ</button></div>
 <p class="muted">ማስታወሻ፦ ይህ የfrontend ክፍል ነው፤ በFirebase Realtime Database Rules ላይ የAdmin መብት መጠበቅ አለበት።</p>
 </div></div></div></section>
