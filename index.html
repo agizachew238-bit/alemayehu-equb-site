@@ -303,7 +303,10 @@ async function load(){
    renderMembers();
    renderPayments();
  });
-
+onValue(ref(db,"equb/weekAmounts"),s=>{
+  weekAmounts=s.val()||{};
+  renderPayments();
+});
  onValue(ref(db,"equb/notices"),s=>{
   notices = s.val()
     ? Object.entries(s.val()).map(([id,value])=>({id,...value}))
