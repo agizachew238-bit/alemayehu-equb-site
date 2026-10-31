@@ -384,7 +384,27 @@ window.addNotice=async()=>{
     alert("Admin ብቻ ስም ማስተካከል ይችላል።");
     return;
   }
+window.saveWeekAmount = async () => {
+  if (!auth.currentUser) {
+    alert("Admin ብቻ የሳምንት መዋጮ መጠን መቀየር ይችላል።");
+    return;
+  }
 
+  const week = document.getElementById("amountWeek").value;
+  const amount = Number(document.getElementById("weekAmount").value);
+
+  if (!amount || amount <= 0) {
+    alert("ትክክለኛ የገንዘብ መጠን ያስገቡ።");
+    return;
+  }
+
+  try {
+    await set(ref(db, `equb/weekAmounts/${week}`), amount);
+    alert(`ሳምንት ${week} መዋጮ ${amount.toLocaleString()} ብር ሆኗል።`);
+  } catch (error) {
+    alert("መጠኑ አልተቀመጠም። " + error.message);
+  }
+};
   const oldName = members[i];
   const newName = prompt("አዲሱን ስም ያስገቡ፦", oldName);
 
