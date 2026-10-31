@@ -437,44 +437,61 @@ window.markPaid = async () => {
   }
 };
 window.drawLottery=async()=>{
+window.drawLottery=async()=>{
   if(!auth.currentUser){
     alert("የእጣ አስተዳደር ለAdmin ብቻ ነው።");
     return;
   }
 
-  const startWeek = 6;
+  const startWeek=6;
 
-  // ቀድሞ እጣ ያገኙ አባላት
-  const winners = history
-    .map(x => x.winner)
+  // ቀድሞ የወጡ የአባል መለያዎች
+  const usedIndexes=history
+    .map(x=>Number(x.winnerIndex))
+    .filter(x=>Number.isInteger(x));
+
+  // የቀድሞ history ውስጥ ያሉ ስሞች
+  const oldWinnerNames=history
+    .map(x=>x.winner)
     .filter(Boolean);
 
   // እጣ ያላገኙ አባላት
-  const availableMembers = members.filter(
-    m => !winners.includes(m)
-  );
+  const availableIndexes=members
+    .map((name,index)=>({name,index}))
+    .filter(x=>{
+      // አዲስ history ካለ winnerIndex ይጠቀማል
+      if(usedIndexes.includes(x.index)) return false;
 
-  if(availableMembers.length === 0){
+      // አሮጌ history ከሆነ በስም ይከላከላል
+      if(oldWinnerNames.includes(x.name)) return false;
+
+      return true;
+    });
+
+  if(availableIndexes.length===0){
     alert("ሁሉም አባላት እጣ አግኝተዋል።");
     return;
   }
 
-  // የተጠቀሙትን ሳምንታት ይፈልጋል
-  const usedWeeks = history
-    .map(x => Number(String(x.week || "").replace(/\D/g,"")))
+  // የሚቀጥለውን ሳምንት ያገኛል
+  const usedWeeks=history
+    .map(x=>Number(String(x.week||"").replace(/\D/g,"")))
     .filter(Number.isInteger);
 
-  let nextWeek = startWeek;
+  let nextWeek=startWeek;
 
   while(usedWeeks.includes(nextWeek)){
     nextWeek++;
   }
 
   // ከቀሩት አባላት አንድ ይመርጣል
-  const winner =
-    availableMembers[
-      Math.floor(Math.random() * availableMembers.length)
+  const selected=
+    availableIndexes[
+      Math.floor(Math.random()*availableIndexes.length)
     ];
+
+  const winner=selected.name;
+  const winnerIndex=selected.index;
 
   const wheel=document.getElementById("wheel");
 
@@ -496,6 +513,7 @@ window.drawLottery=async()=>{
         {
           week:`ሳምንት ${nextWeek}`,
           winner:winner,
+          winnerIndex:winnerIndex,
           prize:150000,
           date:new Date().toLocaleString("am-ET")
         }
@@ -504,6 +522,17 @@ window.drawLottery=async()=>{
       alert(
         `ሳምንት ${nextWeek} እጣ ተካሂዷል።\nአሸናፊ፦ ${winner}`
       );
+
+    }catch(error){
+
+      alert("የእጣ ታሪክ አልተቀመጠም። "+error.message);
+
+    }
+
+    drawBtn.disabled=false;
+
+  },4100);
+};
 
     }catch(error){
 
