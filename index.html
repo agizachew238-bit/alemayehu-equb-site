@@ -226,12 +226,12 @@ function renderPayments(){
         return p === true || p?.paid === true;
       }).length;
 
-      totalCollected += paid * 10000;
-
+ totalCollected += paid * (Number(weekAmounts[w]) || 10000);
+    
       return `
         <tr>
           <td>ሳምንት ${w}</td>
-          <td>110,000 ብር</td>
+          <td>${((Number(weekAmounts[w]) || 10000) * members.length).toLocaleString()} ብር</td>
           <td>${(paid * 10000).toLocaleString()} ብር</td>
           <td><span class="pill">${paid}/${members.length}</span></td>
         </tr>
