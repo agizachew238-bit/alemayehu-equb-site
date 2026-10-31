@@ -198,7 +198,12 @@ const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"
         </div>
 
         <div class="muted">
-          የተከፈለ፦ ${(paid * 10000).toLocaleString()} ብር
+          የተከፈለ፦ ${weeks.reduce((sum,w)=>{
+  const p = payments[`m${i}_w${w}`];
+  return sum + (p === true || p?.paid === true
+    ? (Number(weekAmounts[w]) || 10000)
+    : 0);
+},0).toLocaleString()} ብር
         </div>
 
         <div style="display:flex;gap:8px;margin-top:12px">
