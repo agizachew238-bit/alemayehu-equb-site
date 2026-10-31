@@ -149,7 +149,8 @@ const auth=getAuth(app), db=getDatabase(app);
 let members=["አለማየሁ","ቃላአብ","ፌቨን","ፍሬ ሰንበት","አየናቸው","ጫላ","ቦጃ","አለማየሁ","ቃላአብ እና ፍሬ","ሞገስ","መልካሙ"];
 let payments={}, notices=[], history=[];
 const weeks=Array.from({length:15},(_,i)=>i+1);
-
+let weekAmounts={};
+  
 window.go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
